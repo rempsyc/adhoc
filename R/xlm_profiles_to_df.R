@@ -37,35 +37,32 @@
 #'
 #' @export
 xlm_profiles_to_df <- function(path) {
+  insight::check_if_installed("xml2")
   raw <- readBin(path, "raw", file.info(path)$size)
+  if (!length(raw)) {
+    stop("File appears empty: ", path)
+  }
   raw <- raw[raw != as.raw(0x00)]
   i <- which(raw == as.raw(0x3C))[1]
   if (is.na(i)) {
     stop("No '<' byte found.")
   }
   raw <- raw[i:length(raw)]
-  txt <- rawToChar(raw)
-  Encoding(txt) <- "UTF-8"
-  s <- if (grepl("^\\s*<\\?xml", txt)) {
-    sub("^\\s*<\\?xml[^>]*\\?>", '<?xml version="1.0" encoding="UTF-8"?>', txt)
+  txt0 <- rawToChar(raw)
+  txt <- iconv(txt0, from = "UTF-8", to = "UTF-8", sub = NA)
+  if (is.na(txt)) {
+    txt <- iconv(txt0, from = "latin1", to = "UTF-8", sub = "byte")
+  }
+  if (grepl("^\\s*<\\?xml", txt)) {
+    txt <- sub(
+      "^\\s*<\\?xml[^>]*\\?>",
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      txt
+    )
   } else {
-    paste0('<?xml version="1.0" encoding="UTF-8"?>\n', txt)
+    txt <- paste0('<?xml version="1.0" encoding="UTF-8"?>\n', txt)
   }
-  doc <- tryCatch(xml2::read_xml(s), error = function(e) NULL)
-  if (is.null(doc)) {
-    Encoding(txt) <- "latin1"
-    txt <- iconv(txt, "latin1", "UTF-8", sub = "byte")
-    s <- if (grepl("^\\s*<\\?xml", txt)) {
-      sub(
-        "^\\s*<\\?xml[^>]*\\?>",
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        txt
-      )
-    } else {
-      paste0('<?xml version="1.0" encoding="UTF-8"?>\n', txt)
-    }
-    doc <- xml2::read_xml(s)
-  }
+  doc <- xml2::read_xml(txt, encoding = "UTF-8")
   rows <- xml2::xml_find_all(doc, ".//ROW")
   lst <- lapply(rows, function(r) {
     k <- xml2::xml_children(r)
@@ -76,7 +73,7 @@ xlm_profiles_to_df <- function(path) {
     do.call(
       rbind,
       lapply(lst, function(x) {
-        y <- setNames(rep(NA_character_, length(nms)), nms)
+        y <- stats::setNames(rep(NA_character_, length(nms)), nms)
         y[names(x)] <- x
         y
       })

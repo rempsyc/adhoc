@@ -61,9 +61,7 @@ test_that("handles Latin-1 bytes, NULs, and missing XML declaration", {
   latin1_raw <- insert_nul(latin1_raw, max(2, floor(length(latin1_raw) / 2)))
 
   f <- tempfile(fileext = ".xml")
-  con <- file(f, open = "wb")
-  on.exit(close(con), add = TRUE)
-  writeBin(latin1_raw, con)
+  writeBin(latin1_raw, f)
 
   df <- xlm_profiles_to_df(f)
 
