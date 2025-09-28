@@ -2,3 +2,20 @@ url: https://rempsyc.github.io/adhoc/
 template:
   bootstrap: 5
 
+home:
+  links:
+  - text: Source
+    href: https://github.com/rempsyc/adhoc
+  - text: Issues
+    href: https://github.com/rempsyc/adhoc/issues
+  - text: Citation
+    href: articles/citation.html
+
+navbar:
+  structure:
+    left:  [home, reference, articles, news]
+    right: [github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/rempsyc/adhoc
