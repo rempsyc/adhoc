@@ -1,0 +1,6 @@
+# Package index
+
+## All functions
+
+- [`xlm_profiles_to_df()`](https://rempsyc.github.io/adhoc/reference/xlm_profiles_to_df.md)
+  : Read legacy profile XML into a data frame
