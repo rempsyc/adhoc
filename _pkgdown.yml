@@ -11,6 +11,19 @@ home:
   - text: Citation
     href: articles/citation.html
 
+  # NEW: customize sidebar so it *doesn't* use the built-in "links" block
+  sidebar:
+    structure: [custom_links, license, community, citation, authors, dev]
+    components:
+      custom_links:
+        title: Links
+        text: |
+          [Source](https://github.com/rempsyc/adhoc)
+
+          [Issues](https://github.com/rempsyc/adhoc/issues)
+
+          [Citation](articles/citation.html)
+
 navbar:
   structure:
     left:  [home, reference, articles, news]
@@ -19,9 +32,3 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/rempsyc/adhoc
-
-development:
-  mode: unreleased
-
-links:
-  external: false
