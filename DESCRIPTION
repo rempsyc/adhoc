@@ -1,5 +1,5 @@
 Package: adhoc
-Title: Ad hoc functions to help friends
+Title: Ad Hoc Functions to Help Friends
 Version: 0.0.0.9001
 Authors@R: 
     person("Rémi", "Thériault", , "remi.theriault@mail.mcgill.ca", role = c("aut", "cre"),
