@@ -19,3 +19,9 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/rempsyc/adhoc
+
+development:
+  mode: unreleased
+
+links:
+  external: false
