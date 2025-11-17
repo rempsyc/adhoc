@@ -7,11 +7,11 @@
 
 ## Citation
 
-Thériault R (2025). *adhoc: Ad hoc functions to help friends*. R package
+Thériault R (2025). *adhoc: Ad Hoc Functions to Help Friends*. R package
 version 0.0.0.9001, <https://rempsyc.github.io/adhoc/>.
 
     @Manual{,
-      title = {adhoc: Ad hoc functions to help friends},
+      title = {adhoc: Ad Hoc Functions to Help Friends},
       author = {Rémi Thériault},
       year = {2025},
       note = {R package version 0.0.0.9001},
